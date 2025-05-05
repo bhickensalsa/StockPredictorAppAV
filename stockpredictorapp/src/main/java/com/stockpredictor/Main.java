@@ -40,14 +40,18 @@ public class Main {
             // Fetch historical daily stock data for the symbol "AAPL"
             List<StockData> stockData = client.getTimeSeriesDaily("AAPL");
 
-            // Choose a predictor model (e.g., Moving Average with a 5-day window)
-            Predictor predictor = new MovingAveragePredictor(5); // Can switch to other models like LinearRegressionPredictor
+            // Choose a predictor model (e.g., Moving Average with a 200-day window)
+            Predictor MApredictor = new MovingAveragePredictor(200); // Can switch to other models like LinearRegressionPredictor
 
+            Predictor LRpredictor = new LinearRegressionPredictor();
+            
             // Predict the next closing price based on historical data
-            double prediction = predictor.predictNext(stockData);
+            double MAprediction = MApredictor.predictNext(stockData);
+            double LRprediction = LRpredictor.predictNext(stockData);
 
             // Output the predicted next value to the console
-            System.out.println("Predicted next value: " + prediction);
+            System.out.println("Predicted next value (Moving average): " + MAprediction);
+            System.out.println("Predicted next value (Linear progression): " + LRprediction);
 
         } catch (Exception e) {
             // Handle any exceptions that occur during execution (e.g., API call failures, invalid data)
